@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilities_nodes.c                                  :+:      :+:    :+:   */
+/*   utils_nodes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:37:13 by paulo             #+#    #+#             */
-/*   Updated: 2025/05/04 13:30:26 by paulo            ###   ########.fr       */
+/*   Updated: 2025/05/14 14:38:37 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	insert_end(t_node **root, int value)
+void	append_node(t_node **root, int value)
 {
 	t_node	*new_node;
 	t_node	*curr;
@@ -33,6 +33,35 @@ void	insert_end(t_node **root, int value)
 	curr->next = new_node;
 }
 
+void	init_stack_a(t_node **root, char **argv)
+{
+	size_t		i;
+	long		num;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (!validate_str(argv[i]))
+		{
+			printf("String nao convertivel no atol\n");
+			return ;
+		}
+		num = ft_atol(argv[i]);
+		if (num > INT_MAX || num < INT_MIN)
+		{
+			printf("Valor convertido maior ou menor que os LIMTIS de int\n");
+			return ;
+		}
+		if (exist_in_list(*root, (int)num))
+		{
+			printf("Valor ja existe na lista\n");
+			return ;
+		}	
+		append_node(root, (int)num);
+		i++;
+	}
+}
+
 void 	print_list(t_node **root)
 {
 	t_node *curr;
@@ -45,4 +74,21 @@ void 	print_list(t_node **root)
 		printf("%d\n", curr->value);
 		curr = curr->next;
 	}
+}
+
+void	free_stack(t_node **root)
+{
+	t_node	*curr;
+	t_node	*temp_node;
+
+	if (*root == NULL)
+		return ;
+	curr = *root;
+	while (curr != NULL)
+	{
+		temp_node = curr->next;
+		free(curr);
+		curr = temp_node;
+	}
+	*root = NULL;
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_validate_str.c                               :+:      :+:    :+:   */
+/*   utils_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 12:28:00 by paulo             #+#    #+#             */
-/*   Updated: 2025/05/05 12:42:31 by paulo            ###   ########.fr       */
+/*   Updated: 2025/05/14 13:47:42 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,20 @@ bool    validate_str(const char *str)
 		i++;
 	}
 	return (true);
+}
+
+bool	exist_in_list(t_node *root, int num)
+{
+	t_node	*curr;
+
+	if (root == NULL)
+		return (false);
+	curr = root;
+	while (curr != NULL)
+	{
+		if (curr->value == num)
+			return (true);
+		curr = curr->next;
+	}
+	return (false);
 }
