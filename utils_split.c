@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 12:46:58 by paulo             #+#    #+#             */
-/*   Updated: 2025/05/12 15:54:55 by paulo            ###   ########.fr       */
+/*   Updated: 2025/05/18 19:24:03 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	**split_str(char *str, char sep)
 	arr = malloc(sizeof(char *) * (words + 1));
 	if (!arr)
 		return (NULL);
-	if (!fill_words(arr, str, sep))
+	if (!fill_words(arr + 1, str, sep))
 		return (NULL);
 	return (arr);
 }

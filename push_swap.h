@@ -38,4 +38,8 @@ bool	exist_in_list(t_node *root, int num);
 // Utilities_atol
 long	ft_atol(const char *str);
 
+// Utilities_sorted
+int		is_sorted(t_node **root);
+size_t	len_stack(t_node **root);
+
 #endif
