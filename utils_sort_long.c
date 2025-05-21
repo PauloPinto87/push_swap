@@ -93,6 +93,27 @@ void set_cost_move(t_node *root_a, t_node *root_b)
 	}
 }
 
+void set_cheapest(t_node *root_node)
+{
+	t_node	*cheapest_node;
+	long	min_cost;
+
+	if (root_node == NULL)
+		return ;
+	min_cost = LONG_MAX;
+	while (root_node != NULL)
+	{
+		if (root_node->push_cost < min_cost)
+		{
+			min_cost = root_node->push_cost;
+			cheapest_node = root_node;
+		}
+		root_node->cheapest = false;
+		root_node = root_node->next;
+	}
+	cheapest_node->cheapest = true;
+}
+
 void sort_long(t_node **root_a, t_node **root_b)
 {
 	int		len_a;
@@ -110,8 +131,11 @@ void sort_long(t_node **root_a, t_node **root_b)
 	set_index_median(root_b);
 	set_target_node(*root_a, *root_b);
 	set_cost_move(*root_a, *root_b);
+	set_cheapest(*root_a);
 
-	//print_list(root_a, 'a');
-	//print_list(root_b, 'b');
+
+
+	print_list(root_a, 'a');
+	print_list(root_b, 'b');
 	//printf("len_a: %d\n", len_a);
 }

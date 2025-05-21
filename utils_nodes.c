@@ -71,7 +71,7 @@ void 	print_list(t_node **root, char stack)
 	curr = *root;
 	while (curr != NULL)
 	{
-		printf("value: %d, index: %d, under_median: %d\n", curr->value, curr->index, curr->under_median);
+		printf("value: %d, index: %d, under_median: %d, cheapest: %d, cost_move: %d\n", curr->value, curr->index, curr->under_median, curr->cheapest, curr->push_cost);
 		curr = curr->next;
 	}
 }
