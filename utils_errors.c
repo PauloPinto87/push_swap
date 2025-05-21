@@ -12,27 +12,6 @@
 
 #include "push_swap.h"
 
-bool    is_space(char c)
-{
-	if ((c >= 9 && c <= 13) || c == ' ')
-		return (true);
-	return (false);
-}
-
-bool    is_digit(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (true);
-	return (false);
-}
-
-bool    is_sign(char c)
-{
-	if (c == '+' || c == '-')
-		return (true);
-	return (false);
-}
-
 bool    validate_str(const char *str)
 {
 	int     i;
@@ -42,11 +21,11 @@ bool    validate_str(const char *str)
 	allow_sign = true;
 	while (str[i])
 	{
-		if (is_space(str[i]))
+		if ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 			allow_sign = true;
-		else if (is_sign(str[i]) && allow_sign)
+		else if ((str[i] == '+' || str[i] == '-') && allow_sign)
 			allow_sign = false;
-		else if (is_digit(str[i]))
+		else if ((str[i] >= '0' && str[i] <= '9'))
 			allow_sign = false;
 		else
 			return (false);
@@ -69,4 +48,12 @@ bool	exist_in_list(t_node *root, int num)
 		curr = curr->next;
 	}
 	return (false);
+}
+
+void handle_error(t_node **root, char **argv)
+{
+	if (root != NULL)
+		free_stack(root);
+	if (argv != NULL)
+		free_split(argv);
 }

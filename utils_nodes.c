@@ -25,15 +25,17 @@ void	append_node(t_node **root, int value)
 	if (*root == NULL)
 	{
 		*root = new_node;
+		new_node->prev = NULL;
 		return ;
 	}
 	curr = *root;
 	while (curr->next != NULL)
 		curr = curr->next;
 	curr->next = new_node;
+	new_node->prev = curr;
 }
 
-void	init_stack_a(t_node **root, char **argv)
+int	init_stack_a(t_node **root, char **argv)
 {
 	size_t		i;
 	long		num;
@@ -42,36 +44,34 @@ void	init_stack_a(t_node **root, char **argv)
 	while (argv[i])
 	{
 		if (!validate_str(argv[i]))
-		{
-			printf("String nao convertivel no atol\n");
-			return ;
-		}
+			return (handle_error(root, argv), 0);
 		num = ft_atol(argv[i]);
 		if (num > INT_MAX || num < INT_MIN)
-		{
-			printf("Valor convertido maior ou menor que os LIMTIS de int\n");
-			return ;
-		}
+			return (handle_error(root, argv), 0);
+
 		if (exist_in_list(*root, (int)num))
-		{
-			printf("Valor ja existe na lista\n");
-			return ;
-		}	
+			return (handle_error(root, argv), 0);
 		append_node(root, (int)num);
 		i++;
 	}
+	free_split(argv);
+	return (1);
 }
 
-void 	print_list(t_node **root)
+void 	print_list(t_node **root, char stack)
 {
 	t_node *curr;
 
-	if (*root == NULL)
+	if (root == NULL || *root == NULL)
+	{
+		printf("List of nodes stack %c is empty\n", stack);
 		return ;
+	}
+	printf("List of nodes stack %c:\n", stack);
 	curr = *root;
 	while (curr != NULL)
 	{
-		printf("%d\n", curr->value);
+		printf("value: %d, index: %d, under_median: %d\n", curr->value, curr->index, curr->under_median);
 		curr = curr->next;
 	}
 }
@@ -91,4 +91,64 @@ void	free_stack(t_node **root)
 		curr = temp_node;
 	}
 	*root = NULL;
+}
+
+size_t	len_stack(t_node **root)
+{
+	t_node	*curr;
+	size_t	i;
+	
+	i = 0;
+	if (*root == NULL)
+		return (i);
+	curr = *root;
+	while (curr != NULL)
+	{
+		i++;
+		curr = curr->next;
+	}
+	return (i);
+}
+
+int	index_max(t_node **root)
+{
+	t_node	*curr;
+	int		max;
+	int		i;
+	int		index;
+
+	if (root == NULL || *root == NULL)
+		return (-1);
+	curr = *root;
+	max = curr->value;
+	i = 0;
+	index = 0;
+	while (curr != NULL)
+	{
+		if (curr->value > max)
+		{
+			max = curr->value;
+			index = i;
+		}
+		curr = curr->next;
+		i++;
+	}
+	return (index);
+}
+t_node	*value_max(t_node **root)
+{
+	t_node	*curr;
+	t_node	*max_node;
+
+	if (root == NULL || *root == NULL)
+		return (NULL);
+	curr = *root;
+	max_node = curr;
+	while (curr != NULL)
+	{
+		if (curr->value > max_node->value)
+			max_node = curr;
+		curr = curr->next;
+	}
+	return (max_node);
 }

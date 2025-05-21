@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_sorted.c                                     :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 10:41:51 by paulo             #+#    #+#             */
-/*   Updated: 2025/05/16 11:33:58 by paulo            ###   ########.fr       */
+/*   Created: 2025/05/19 12:30:49 by marvin            #+#    #+#             */
+/*   Updated: 2025/05/19 12:30:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_sorted(t_node **root)
-{
-	t_node	*curr;
 
-	if (*root == NULL)
-		return (1);
-	curr = *root;
-	while (curr->next != NULL)
-	{
-		if (curr->value > curr->next->value)
-			return (0);
-		curr = curr->next;
-	}
-	return (1);
+void	reverse_rotate(t_node **root)
+{
+	t_node	*first;
+	t_node	*last;
+
+	if (*root == NULL || (*root)->next == NULL)
+		return ;
+	first = *root;
+	last = last_node(root);
+	*root = last;
+	last->prev = NULL;
+	last->next = first;
+	first->prev = last;
+	first->next->next = NULL;
 }
