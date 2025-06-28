@@ -30,14 +30,8 @@ void	sort_three(t_node **root, char stack)
 			printf("s%c\n", stack);
 		}
 		else if (max_index == 0)
-		{
-			rotate(root);
-			printf("r%c\n", stack);
-		}
+			rotate(root, stack);
 		else
-		{
-			reverse_rotate(root);
-			printf("rr%c\n", stack);
-		}
+			reverse_rotate(root, stack);
 	}
 }

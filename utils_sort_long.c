@@ -88,7 +88,7 @@ void set_cost_move(t_node *root_a, t_node *root_b)
 			curr_a->push_cost += curr_a->target_node->index;
 		else
 			curr_a->push_cost += len_stack_b - curr_a->target_node->index;
-		printf("curr_a value: %d, cost_move: %u, target value: %d\n", curr_a->value, curr_a->push_cost, curr_a->target_node->value);
+		//printf("curr_a value: %d, cost_move: %u, target value: %d\n", curr_a->value, curr_a->push_cost, curr_a->target_node->value);
 		curr_a = curr_a->next;
 	}
 }
@@ -114,6 +114,60 @@ void set_cheapest(t_node *root_node)
 	cheapest_node->cheapest = true;
 }
 
+t_node *find_cheapest(t_node **root_a, t_node **root_b)
+{
+	t_node	*cheapest_node;
+
+	cheapest_node = NULL;
+	if (*root_a == NULL || *root_b == NULL)
+		return (NULL);
+	cheapest_node = *root_a;
+	while (cheapest_node != NULL && cheapest_node->cheapest == false)
+		cheapest_node = cheapest_node->next;
+	if (!cheapest_node)
+		return (NULL);
+	printf("cheapest_node: %d, target_node: %d\n", cheapest_node->value, cheapest_node->target_node->value);
+	return (cheapest_node);
+}
+
+void move_cheapest(t_node **root_a, t_node **root_b)
+{
+	t_node	*cheapest_node;
+	t_node	*target_node;
+
+	cheapest_node = find_cheapest(root_a, root_b);
+	if (!cheapest_node)
+		return ;
+	target_node = cheapest_node->target_node;
+    while (*root_a != cheapest_node || *root_b != target_node)
+    {
+        if (!cheapest_node->under_median && !target_node->under_median
+            && *root_a != cheapest_node && *root_b != target_node)
+		{
+            rotate(root_a, 'a');
+			rotate(root_b, 'b');
+		}
+		else if (cheapest_node->under_median && target_node->under_median
+			&& *root_a != cheapest_node && *root_b != target_node)
+		{
+			reverse_rotate(root_a, 'a');
+			reverse_rotate(root_b, 'b');
+        }
+		else if (cheapest_node->under_median && target_node->under_median
+            && *root_a != cheapest_node && *root_b != target_node)
+            reverse_rotate(root_a, 'a');
+        else if (!cheapest_node->under_median && *root_a != cheapest_node)
+            rotate(root_a, 'a');
+        else if (cheapest_node->under_median && *root_a != cheapest_node)
+            reverse_rotate(root_a, 'a');
+        else if (!target_node->under_median && *root_b != target_node)
+            rotate(root_b, 'b');
+        else if (target_node->under_median && *root_b != target_node)
+            reverse_rotate(root_b, 'b');
+    }
+		push_a(root_a, root_b);
+}
+
 void sort_long(t_node **root_a, t_node **root_b)
 {
 	int		len_a;
@@ -127,13 +181,18 @@ void sort_long(t_node **root_a, t_node **root_b)
 		len_a = len_stack(root_a);
 		i++;
 	}
-	set_index_median(root_a);
-	set_index_median(root_b);
-	set_target_node(*root_a, *root_b);
-	set_cost_move(*root_a, *root_b);
-	set_cheapest(*root_a);
-
-
+	for (int j = 0; j < len_a; j++)
+	{
+		print_list(root_a, 'a');
+		print_list(root_b, 'b');
+		set_index_median(root_a);
+		set_index_median(root_b);
+		set_target_node(*root_a, *root_b);
+		set_cost_move(*root_a, *root_b);
+		set_cheapest(*root_a);
+		move_cheapest(root_a, root_b);
+		printf("len_a: %d\n\n", len_stack(root_a));
+	}
 
 	print_list(root_a, 'a');
 	print_list(root_b, 'b');

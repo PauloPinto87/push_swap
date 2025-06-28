@@ -49,11 +49,11 @@ size_t	len_stack(t_node **root);
 void	swap(t_node **root);
 
 // Utilities_rotate
-void	rotate(t_node **root);
+void	rotate(t_node **root, char stack);
 t_node	*last_node(t_node **root);
 
 // Utilities reverse rotate
-void	reverse_rotate(t_node **root);
+void	reverse_rotate(t_node **root, char stack);
 
 // Utilities sort short
 void	sort_two(t_node **root, char stack);
