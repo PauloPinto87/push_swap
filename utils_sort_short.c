@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_sort_two.c                                   :+:      :+:    :+:   */
+/*   utils_sort_short.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:27:06 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/19 12:27:06 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/01 20:44:39 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	sort_two(t_node **root, char stack)
 {
-		swap(root);
-		printf("s%c\n", stack);
+	swap(root);
+	printf("s%c\n", stack);
 }
+
 void	sort_three(t_node **root, char stack)
 {
-	int max_index;
+	int	max_index;
 
 	while (!is_sorted(root))
 	{

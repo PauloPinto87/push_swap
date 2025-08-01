@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:37:13 by paulo             #+#    #+#             */
-/*   Updated: 2025/05/18 19:56:50 by paulo            ###   ########.fr       */
+/*   Updated: 2025/08/01 20:36:24 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	init_stack_a(t_node **root, char **argv)
 		num = ft_atol(argv[i]);
 		if (num > INT_MAX || num < INT_MIN)
 			return (handle_error(root, argv), 0);
-
 		if (exist_in_list(*root, (int)num))
 			return (handle_error(root, argv), 0);
 		append_node(root, (int)num);
@@ -58,9 +57,9 @@ int	init_stack_a(t_node **root, char **argv)
 	return (1);
 }
 
-void 	print_list(t_node **root, char stack)
+void	print_list(t_node **root, char stack)
 {
-	t_node *curr;
+	t_node	*curr;
 
 	if (root == NULL || *root == NULL)
 	{
@@ -71,7 +70,7 @@ void 	print_list(t_node **root, char stack)
 	curr = *root;
 	while (curr != NULL)
 	{
-		printf("value: %d, index: %d, under_median: %d, cheapest: %d, cost_move: %d\n", curr->value, curr->index, curr->under_median, curr->cheapest, curr->push_cost);
+		printf("value: %d, index: %ld, under_median: %d, cheapest:%d, cost_move: %d\n", curr->value, curr->index, curr->under_median, curr->cheapest, curr->push_cost);
 		curr = curr->next;
 	}
 }
@@ -97,7 +96,7 @@ size_t	len_stack(t_node **root)
 {
 	t_node	*curr;
 	size_t	i;
-	
+
 	i = 0;
 	if (*root == NULL)
 		return (i);
@@ -135,6 +134,7 @@ int	index_max(t_node **root)
 	}
 	return (index);
 }
+
 t_node	*value_max(t_node **root)
 {
 	t_node	*curr;

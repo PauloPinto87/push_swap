@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:18:59 by paulo             #+#    #+#             */
-/*   Updated: 2025/05/18 19:41:22 by paulo            ###   ########.fr       */
+/*   Updated: 2025/08/01 20:29:41 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	len_args(char **args)
 	return (i);
 }
 
-int main(int argc, char **argv) 
+int	main(int argc, char **argv)
 {
 	t_node	*stack_a;
 	t_node	*stack_b;
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 		return (1);
 	else if (argc == 2)
 		argv = split_str(argv[1], ' ');
-	init_stack_a(&stack_a, argv + 1);
+	init_stack_a(&stack_a, argv);
 	if (!is_sorted(&stack_a))
 	{
 		if (len_stack(&stack_a) == 2)
@@ -43,6 +43,5 @@ int main(int argc, char **argv)
 		else
 			sort_long(&stack_a, &stack_b);
 	}
-	//printf("Length of stack: %d\n", len_stack(&stack_a));
 	return (0);
 }

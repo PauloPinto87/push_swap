@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 12:46:58 by paulo             #+#    #+#             */
-/*   Updated: 2025/05/18 19:24:03 by paulo            ###   ########.fr       */
+/*   Updated: 2025/08/01 20:05:43 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	free_split(char **arr)
 	free(arr);
 }
 
-static char	**fill_words(char **arr, const char *str, char sep)
+static char	**fill_words(char **new_array, const char *str, char sep)
 {
 	size_t	i;
 	size_t	j;
@@ -81,29 +81,29 @@ static char	**fill_words(char **arr, const char *str, char sep)
 			len_word++;
 		if (len_word > 0)
 		{
-			arr[j] = ft_strndup(str + i, len_word);
-			if (!arr[j])
-				return (free_split(arr), NULL);
+			new_array[j] = ft_strndup(str + i, len_word);
+			if (!new_array[j])
+				return (free_split(new_array), NULL);
 			j++;
 			i += len_word;
 		}
 	}
-	arr[j] = NULL;
-	return (arr);
+	new_array[j] = NULL;
+	return (new_array);
 }
 
 char	**split_str(char *str, char sep)
 {
 	size_t	words;
-	char	**arr;
+	char	**new_array;
 
 	if (!str)
 		return (NULL);
 	words = count_words(str, sep);
-	arr = malloc(sizeof(char *) * (words + 1));
-	if (!arr)
+	new_array = malloc(sizeof(char *) * (words + 1));
+	if (!new_array)
 		return (NULL);
-	if (!fill_words(arr + 1, str, sep))
+	if (!fill_words(new_array, str, sep))
 		return (NULL);
-	return (arr);
+	return (new_array);
 }

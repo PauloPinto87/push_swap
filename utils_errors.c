@@ -6,16 +6,16 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 12:28:00 by paulo             #+#    #+#             */
-/*   Updated: 2025/05/14 13:47:42 by paulo            ###   ########.fr       */
+/*   Updated: 2025/08/01 20:45:16 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool    validate_str(const char *str)
+bool	validate_str(const char *str)
 {
-	int     i;
-	bool    allow_sign;
+	int		i;
+	bool	allow_sign;
 
 	i = 0;
 	allow_sign = true;
@@ -50,7 +50,7 @@ bool	exist_in_list(t_node *root, int num)
 	return (false);
 }
 
-void handle_error(t_node **root, char **argv)
+void	handle_error(t_node **root, char **argv)
 {
 	if (root != NULL)
 		free_stack(root);
