@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 12:46:58 by paulo             #+#    #+#             */
-/*   Updated: 2025/08/01 20:05:43 by paulo            ###   ########.fr       */
+/*   Updated: 2025/08/05 15:44:17 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,19 @@ static char	*ft_strndup(const char *str, size_t len)
 	return (copy);
 }
 
-void	free_split(char **arr)
+void	free_split(char **array)
 {
 	int	i;
 
+	if (!array)
+		return ;
 	i = 0;
-	while (arr[i])
+	while (array[i])
 	{
-		free(arr[i]);
+		free(array[i]);
 		i++;
 	}
-	free(arr);
+	free(array);
 }
 
 static char	**fill_words(char **new_array, const char *str, char sep)

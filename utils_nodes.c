@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:37:13 by paulo             #+#    #+#             */
-/*   Updated: 2025/08/01 20:36:24 by paulo            ###   ########.fr       */
+/*   Updated: 2025/08/05 16:35:08 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	init_stack_a(t_node **root, char **argv)
 	i = 0;
 	while (argv[i])
 	{
+		//printf("argc = %ld and argv = %s\n", i, argv[i]);
+		//printf("!validate_str(argv[i]) = %d\n", !validate_str(argv[i]));
 		if (!validate_str(argv[i]))
 			return (handle_error(root, argv), 0);
 		num = ft_atol(argv[i]);
@@ -53,7 +55,6 @@ int	init_stack_a(t_node **root, char **argv)
 		append_node(root, (int)num);
 		i++;
 	}
-	free_split(argv);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:18:59 by paulo             #+#    #+#             */
-/*   Updated: 2025/08/01 20:29:41 by paulo            ###   ########.fr       */
+/*   Updated: 2025/08/05 20:47:52 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,16 @@ int	main(int argc, char **argv)
 	if (argc == 1 || (argc == 2 && !argv[1][0]))
 		return (1);
 	else if (argc == 2)
+	{
 		argv = split_str(argv[1], ' ');
+		init_stack_a(&stack_a, argv);
+		free_split(argv);
+	}
+	else
+		argv++;
+
 	init_stack_a(&stack_a, argv);
+
 	if (!is_sorted(&stack_a))
 	{
 		if (len_stack(&stack_a) == 2)
@@ -43,5 +51,8 @@ int	main(int argc, char **argv)
 		else
 			sort_long(&stack_a, &stack_b);
 	}
+	print_list(&stack_a, 'a');
+	free_stack(&stack_a);
+	free_stack(&stack_b);
 	return (0);
 }
