@@ -3,14 +3,13 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 # Nome do executável
-NAME = push_swap
+NAME = push_swap 
 
 # Comando para remover arquivos
 RM = rm -f
 
 # Fontes e objetos
-SRC		= push_swap.c push.c rotates_movements.c swap.c utils_atol.c utils_errors.c utils_nodes.c \
-		utils_sort_long.c utils_sort_short.c utils_sorted.c utils_split.c
+SRC		= push_swap.c utils_split.c utils_error.c
 OBJ 	= $(SRC:.c=.o)
 
 # Alvos

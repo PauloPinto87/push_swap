@@ -5,107 +5,117 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 12:46:58 by paulo             #+#    #+#             */
-/*   Updated: 2025/08/05 15:44:17 by paulo            ###   ########.fr       */
+/*   Created: 2025/08/09 19:06:45 by paulo             #+#    #+#             */
+/*   Updated: 2025/08/09 19:35:42 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static size_t	count_words(char *str, char sep)
+static char	*ft_strndup(const char *source, int	len)
 {
-	size_t	qnt_words;
-	size_t	i;
+	int		i;
+	char	*str;
 
-	qnt_words = 0;
-	i = 0;
-	while (str[i])
-	{
-		while (str[i] && str[i] == sep)
-			i++;
-		if (str[i] && str[i] != sep)
-		{
-			qnt_words++;
-			while (str[i] && str[i] != sep)
-				i++;
-		}
-	}
-	return (qnt_words);
-}
-
-static char	*ft_strndup(const char *str, size_t len)
-{
-	char	*copy;
-	size_t	i;
-
-	copy = malloc(sizeof(char) * (len + 1));
-	if (!copy)
+	if (!source)
+		return (NULL);
+	str = NULL;
+	str = malloc((len + 1) * sizeof(char));
+	if (!str)
 		return (NULL);
 	i = 0;
 	while (i < len)
 	{
-		copy[i] = str[i];
+		str[i] = source[i];
 		i++;
 	}
-	copy[i] = '\0';
-	return (copy);
+	str[i] = '\0';
+	return (str);
 }
 
-void	free_split(char **array)
+static int	len_sep(char *arg, char sep)
+{
+	int	len;
+
+	len = 0;
+	while (arg[len] && arg[len] != sep)
+		len++;
+	return (len);
+}
+
+static void	add_words(char **split_list, char *arg, char sep, int *word_count)
 {
 	int	i;
+	int	len;
 
-	if (!array)
-		return ;
 	i = 0;
-	while (array[i])
+	while (arg[i])
 	{
-		free(array[i]);
+		if (arg[i] != sep && (i == 0 || arg[i - 1] == sep))
+		{
+			len = len_sep(arg + i, sep);
+			split_list[*word_count] = ft_strndup(arg + i, len);
+			(*word_count)++;
+			i += len;
+		}
+		else
+			i++;
+	}
+	printf("Atualmente foram add %d words\n", *word_count);
+}
+
+static char	**malloc_split(int argc, char **argv, char sep)
+{
+	int		i;
+	int		j;
+	int		count;
+	char	**split_list;
+
+	split_list = NULL;
+	count = 0;
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (argv[i][j] != sep && (j == 0 || argv[i][j - 1] == sep))
+				count++;
+			j++;
+		}
 		i++;
 	}
-	free(array);
+	if (count == 0)
+		return (NULL);
+	split_list = malloc((count + 1) * sizeof(char *));
+	if (!split_list)
+		return (NULL);
+	return (split_list);
 }
 
-static char	**fill_words(char **new_array, const char *str, char sep)
+char	**split_str_array(int argc, char **argv, char sep)
 {
-	size_t	i;
-	size_t	j;
-	size_t	len_word;
+	char	**split_list;
+	int		i;
+	int		word_count;
+
+	word_count = 0;
+	split_list = malloc_split(argc, argv, sep);
+	if (!split_list)
+		return NULL;
+	i = 1;
+	while (i < argc)
+	{
+		add_words(split_list, argv[i], sep, &word_count);
+		i++;
+	}
+	split_list[word_count] = NULL;
 
 	i = 0;
-	j = 0;
-	while (str[i])
+	while(split_list[i] != NULL)
 	{
-		while (str[i] && str[i] == sep)
-			i++;
-		len_word = 0;
-		while (str[i + len_word] && str[i + len_word] != sep)
-			len_word++;
-		if (len_word > 0)
-		{
-			new_array[j] = ft_strndup(str + i, len_word);
-			if (!new_array[j])
-				return (free_split(new_array), NULL);
-			j++;
-			i += len_word;
-		}
+		printf("split_list[%d] = %s\n", i, split_list[i]);
+		i++;
 	}
-	new_array[j] = NULL;
-	return (new_array);
-}
-
-char	**split_str(char *str, char sep)
-{
-	size_t	words;
-	char	**new_array;
-
-	if (!str)
-		return (NULL);
-	words = count_words(str, sep);
-	new_array = malloc(sizeof(char *) * (words + 1));
-	if (!new_array)
-		return (NULL);
-	if (!fill_words(new_array, str, sep))
-		return (NULL);
-	return (new_array);
+	return (split_list);
 }
