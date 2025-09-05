@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 21:56:34 by paulo             #+#    #+#             */
-/*   Updated: 2025/08/09 19:47:25 by paulo            ###   ########.fr       */
+/*   Updated: 2025/08/31 16:00:15 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,36 @@ static int	ft_isdigit(char character)
 	return (character >= '0' && character <= '9');
 }
 
-static int	ft_issignal(char character)
-{
-	return (character == '-' || character == '+');
-}
-
-int	verify_array_errors(char **split_list)
+int	is_valid_num(char *str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (split_list[i] != NULL)
+	if (!str || !str[i])
+		return (0);
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
 	{
-		j = 0;
-		while (split_list[i][j])
-		{
-			if (ft_issignal(split_list[i][j]) || ft_isdigit(split_list[i][j]))
-				printf("Eh digito ou signal\n");
-			else
-				printf("Eh qualquer outra coisa\n");
-			j++;
-		}
+		if (!ft_isdigit(str[i]))
+			return (0);
 		i++;
 	}
+	return (1);
+}
 
-	return (0);
+int	is_valid_array(char **final_split)
+{
+	int	i;
+
+	i = 0;
+	while (final_split[i])
+	{
+		if(!is_valid_num(final_split[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

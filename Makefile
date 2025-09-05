@@ -9,7 +9,8 @@ NAME = push_swap
 RM = rm -f
 
 # Fontes e objetos
-SRC		= push_swap.c utils_split.c utils_error.c
+SRC		= push_swap.c utils_array_split.c utils_error.c utils_linked_list.c utils_atoi.c \
+			utils_verify_dup.c
 OBJ 	= $(SRC:.c=.o)
 
 # Alvos

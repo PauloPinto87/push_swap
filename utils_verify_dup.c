@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   utils_verify_dup.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 20:54:46 by paulo             #+#    #+#             */
-/*   Updated: 2025/09/05 10:02:05 by paulo            ###   ########.fr       */
+/*   Created: 2025/09/05 09:51:16 by paulo             #+#    #+#             */
+/*   Updated: 2025/09/05 09:55:56 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+int	verify_dup(t_node **root, int num)
 {
-	char	**split_list;
-	t_node	*root_a;
+	t_node	*current_node;
 
-	split_list = NULL;
-	root_a = NULL;
-	if (argc < 2)
-		return (1);
-	else if (argv[1][0] != '\0')
-		split_list = split_str_array(argc, argv, ' ');
-
-	init_stack_a(split_list, &root_a);
-	print_linked_list(&root_a);
-
-	ft_free_list(&root_a);
-	ft_free_array(split_list);
+	current_node = *root;
+	while (current_node != NULL)
+	{
+		if (num == current_node->num)
+			return (1);
+		current_node = current_node->next;
+	}
+	return (0);
 }
-// Todos os erros foram tratados, o linked list esta simples.

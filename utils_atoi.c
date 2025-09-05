@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   utils_atoi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 20:54:46 by paulo             #+#    #+#             */
-/*   Updated: 2025/09/05 10:02:05 by paulo            ###   ########.fr       */
+/*   Created: 2025/08/25 10:56:50 by paulo             #+#    #+#             */
+/*   Updated: 2025/08/31 16:17:41 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+long int	ft_simple_atoi(char *str)
 {
-	char	**split_list;
-	t_node	*root_a;
+	long	result;
+	int		signal;
 
-	split_list = NULL;
-	root_a = NULL;
-	if (argc < 2)
-		return (1);
-	else if (argv[1][0] != '\0')
-		split_list = split_str_array(argc, argv, ' ');
-
-	init_stack_a(split_list, &root_a);
-	print_linked_list(&root_a);
-
-	ft_free_list(&root_a);
-	ft_free_array(split_list);
+	result = 0;
+	signal = 1;
+	while (*str != '\0')
+	{
+		if (*str == '-' || *str == '+' )
+		{
+			if (*str == '-')
+				signal *= -1;
+		}
+		else
+			result = result * 10 + (*str - '0');
+		str++;
+	}
+	return (result * signal);
 }
-// Todos os erros foram tratados, o linked list esta simples.

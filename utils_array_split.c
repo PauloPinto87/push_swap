@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_split.c                                      :+:      :+:    :+:   */
+/*   utils_array_split.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:06:45 by paulo             #+#    #+#             */
-/*   Updated: 2025/08/09 19:35:42 by paulo            ###   ########.fr       */
+/*   Updated: 2025/09/01 10:05:53 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 static char	*ft_strndup(const char *source, int	len)
 {
 	int		i;
-	char	*str;
+	char	*new_str;
 
 	if (!source)
 		return (NULL);
-	str = NULL;
-	str = malloc((len + 1) * sizeof(char));
-	if (!str)
+	new_str = NULL;
+	new_str = malloc((len + 1) * sizeof(char));
+	if (!new_str)
 		return (NULL);
 	i = 0;
 	while (i < len)
 	{
-		str[i] = source[i];
+		new_str[i] = source[i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	new_str[i] = '\0';
+	return (new_str);
 }
 
 static int	len_sep(char *arg, char sep)
@@ -61,7 +61,7 @@ static void	add_words(char **split_list, char *arg, char sep, int *word_count)
 		else
 			i++;
 	}
-	printf("Atualmente foram add %d words\n", *word_count);
+	//printf("Atualmente foram add %d words\n", *word_count);
 }
 
 static char	**malloc_split(int argc, char **argv, char sep)
@@ -93,12 +93,27 @@ static char	**malloc_split(int argc, char **argv, char sep)
 	return (split_list);
 }
 
+void	ft_free_array(char **split_list)
+{
+	int	i;
+
+	i = 0;
+	while (split_list[i] != NULL)
+	{
+		free(split_list[i]);
+		i++;
+	}
+	free(split_list);
+}
+
 char	**split_str_array(int argc, char **argv, char sep)
 {
 	char	**split_list;
 	int		i;
 	int		word_count;
 
+	if (argv == NULL)
+		return (NULL);
 	word_count = 0;
 	split_list = malloc_split(argc, argv, sep);
 	if (!split_list)
@@ -110,12 +125,5 @@ char	**split_str_array(int argc, char **argv, char sep)
 		i++;
 	}
 	split_list[word_count] = NULL;
-
-	i = 0;
-	while(split_list[i] != NULL)
-	{
-		printf("split_list[%d] = %s\n", i, split_list[i]);
-		i++;
-	}
 	return (split_list);
 }
