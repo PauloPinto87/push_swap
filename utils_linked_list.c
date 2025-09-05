@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 18:30:30 by paulo             #+#    #+#             */
-/*   Updated: 2025/09/05 10:00:55 by paulo            ###   ########.fr       */
+/*   Updated: 2025/09/05 10:50:38 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ void	ft_free_list(t_node **root)
 	}
 }
 
+static void	ft_error(void)
+{
+	write (2, "Error\n", 6);
+	exit (1);
+}
+
 void	init_stack_a(char **list_split, t_node **root_a)
 {
 	int		i;
@@ -74,12 +80,12 @@ void	init_stack_a(char **list_split, t_node **root_a)
 	while (list_split[i] != NULL)
 	{
 		if (!is_valid_num(list_split[i]))
-			return ;
+			ft_error();
 		num = ft_simple_atoi(list_split[i]);
 		if (num > INT_MAX || num < INT_MIN)
-			return ;
+			ft_error();
 		if (verify_dup(root_a, num))
-			return ;
+			ft_error();
 		add_node(root_a, (int)num);
 		i++;
 	}

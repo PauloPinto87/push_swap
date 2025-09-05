@@ -6,7 +6,7 @@
 /*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 20:59:59 by paulo             #+#    #+#             */
-/*   Updated: 2025/09/05 09:56:28 by paulo            ###   ########.fr       */
+/*   Updated: 2025/09/05 10:52:48 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <unistd.h>
 
 typedef struct s_node
 {
